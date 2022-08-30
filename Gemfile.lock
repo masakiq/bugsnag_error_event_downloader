@@ -121,6 +121,8 @@ DEPENDENCIES
   rubocop
   rubocop-shopify
   simplecov
+  sorbet
+  tapioca
 
 BUNDLED WITH
    2.3.20
