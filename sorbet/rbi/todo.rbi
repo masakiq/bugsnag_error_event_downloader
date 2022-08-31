@@ -4,19 +4,10 @@
 
 # typed: false
 
-module ::Bugsnag::Api::NotFound; end
-module ::Bugsnag::Api::Unauthorized; end
 module ::JsonPath; end
-module ::RSpec; end
-module ::Sawyer::Agent; end
-module ::Sawyer::Relation; end
-module ::Sawyer::Resource; end
-module ::Sawyer::Response; end
-module ::SimpleCov; end
 module BugsnagErrorEventDownloader::BugsnagApiClient::Client::Bugsnag::Api::Client; end
 module BugsnagErrorEventDownloader::BugsnagApiClient::ErrorEventClient::Bugsnag::Api::RateLimitExceeded; end
 module BugsnagErrorEventDownloader::CLI::Bugsnag::Api::NotFound; end
 module BugsnagErrorEventDownloader::CLI::Bugsnag::Api::Unauthorized; end
 module BugsnagErrorEventDownloader::Converter::CsvConverter::JsonPath; end
 module Faraday::Connection; end
-module RDoc::Task; end
