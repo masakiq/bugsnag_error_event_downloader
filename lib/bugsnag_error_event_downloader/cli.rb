@@ -4,7 +4,7 @@ module BugsnagErrorEventDownloader
   class CLI < Thor
     class_option :token,
       aliases: ["-t"],
-      banner: "BUGSNAG_PARSONAL_ACCESS_TOKEN",
+      banner: "BUGSNAG_PERSONAL_AUTH_TOKEN",
       type: :string,
       desc: "Path to the BUGSNAG_PERSONAL_AUTH_TOKEN with -t, "\
         "or set environment variable to BUGSNAG_PERSONAL_AUTH_TOKEN."
