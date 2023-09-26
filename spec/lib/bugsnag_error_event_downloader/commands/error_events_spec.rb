@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
 RSpec.describe(BugsnagErrorEventDownloader::Commands::ErrorEvents) do
-  let(:instance) { described_class.new(project_id: project_id, error_id: error_id, csv_map_path: csv_map_path) }
+  let(:instance) do
+    described_class.new(
+      project_id: project_id,
+      error_id: error_id,
+      csv_map_path: csv_map_path,
+      start_date: start_date,
+      end_date: end_date,
+    )
+  end
   let(:client) { instance_double(BugsnagErrorEventDownloader::BugsnagApiClient::ErrorEventClient) }
   let(:csv_converter) { instance_double(BugsnagErrorEventDownloader::Converter::CsvConverter) }
 
@@ -15,6 +23,8 @@ RSpec.describe(BugsnagErrorEventDownloader::Commands::ErrorEvents) do
       let(:project_id) { "project_id" }
       let(:error_id) { "error_id" }
       let(:csv_map_path) { "csv_map_path" }
+      let(:start_date) { Time.now.utc - (60 * 60 * 2) }
+      let(:end_date) { Time.now.utc - (60 * 60 * 1) }
 
       it { expect(instance).to(be_a(described_class)) }
     end
@@ -31,6 +41,8 @@ RSpec.describe(BugsnagErrorEventDownloader::Commands::ErrorEvents) do
       let(:project_id) { nil }
       let(:error_id) { "error_id" }
       let(:csv_map_path) { "csv_map_path" }
+      let(:start_date) { Time.now.utc - (60 * 60 * 2) }
+      let(:end_date) { Time.now.utc - (60 * 60 * 1) }
 
       it do
         expect { instance }.to(raise_error(BugsnagErrorEventDownloader::ValidationError) do |error|
@@ -51,6 +63,8 @@ RSpec.describe(BugsnagErrorEventDownloader::Commands::ErrorEvents) do
       let(:project_id) { "project_id" }
       let(:error_id) { "error_id" }
       let(:csv_map_path) { nil }
+      let(:start_date) { Time.now.utc - (60 * 60 * 2) }
+      let(:end_date) { Time.now.utc - (60 * 60 * 1) }
 
       it do
         expect { instance }.to(raise_error(BugsnagErrorEventDownloader::ValidationError) do |error|
@@ -76,6 +90,8 @@ RSpec.describe(BugsnagErrorEventDownloader::Commands::ErrorEvents) do
       let(:project_id) { nil }
       let(:error_id) { nil }
       let(:csv_map_path) { nil }
+      let(:start_date) { Time.now.utc - (60 * 60 * 2) }
+      let(:end_date) { Time.now.utc - (60 * 60 * 1) }
 
       it do
         expect { instance }.to(raise_error(BugsnagErrorEventDownloader::ValidationError) do |error|
@@ -91,6 +107,8 @@ RSpec.describe(BugsnagErrorEventDownloader::Commands::ErrorEvents) do
     let(:project_id) { "project_id" }
     let(:error_id) { "error_id" }
     let(:csv_map_path) { "csv_map_path" }
+    let(:start_date) { Time.now.utc - (60 * 60 * 2) }
+    let(:end_date) { Time.now.utc - (60 * 60 * 1) }
 
     let(:error_event) do
       agent = Sawyer::Agent.new("https://api.bugsnag.com")
@@ -100,7 +118,7 @@ RSpec.describe(BugsnagErrorEventDownloader::Commands::ErrorEvents) do
         project_url: "https://api.bugsnag.com/projects/11111",
         is_full_report: true,
         error_id: "22222",
-        received_at: "2022-01-01 00:00:00.000 UTC",
+        received_at: Time.now.utc - (60 * 60 * 1),
         exception: [
           {
             error_class: "NotFoundError",

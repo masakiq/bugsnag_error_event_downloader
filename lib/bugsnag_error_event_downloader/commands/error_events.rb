@@ -3,10 +3,15 @@
 module BugsnagErrorEventDownloader
   module Commands
     class ErrorEvents
-      def initialize(project_id:, error_id:, csv_map_path:)
+      def initialize(project_id:, error_id:, csv_map_path:, start_date:, end_date:)
         errors = []
         begin
-          @client = BugsnagApiClient::ErrorEventClient.new(project_id: project_id, error_id: error_id)
+          @client = BugsnagApiClient::ErrorEventClient.new(
+            project_id: project_id,
+            error_id: error_id,
+            start_date: start_date,
+            end_date: end_date
+          )
         rescue ValidationError => e
           errors << e.attributes
         end
