@@ -54,7 +54,7 @@ RSpec.describe(BugsnagErrorEventDownloader::BugsnagApiClient::ErrorEventClient) 
         project_url: "https://api.bugsnag.com/projects/11111",
         is_full_report: true,
         error_id: "22222",
-        received_at: "2022-01-01 00:00:00.000 UTC",
+        received_at: Time.now.utc - (60 * 60 * 1),
         exception: [
           {
             error_class: "NotFoundError",
@@ -98,7 +98,7 @@ RSpec.describe(BugsnagErrorEventDownloader::BugsnagApiClient::ErrorEventClient) 
         project_url: "https://api.bugsnag.com/projects/11111",
         is_full_report: true,
         error_id: "11111",
-        received_at: Time.parse("2022-01-01 00:00:00.000 UTC"),
+        received_at: Time.now.utc - (60 * 60 * 1),
         exception: [
           {
             error_class: "NotFoundError",
@@ -117,7 +117,7 @@ RSpec.describe(BugsnagErrorEventDownloader::BugsnagApiClient::ErrorEventClient) 
         project_url: "https://api.bugsnag.com/projects/11111",
         is_full_report: true,
         error_id: "11111",
-        received_at: Time.parse("2022-01-01 00:00:00.000 UTC"),
+        received_at: Time.now.utc - (60 * 60 * 2),
         exception: [
           {
             error_class: "NotFoundError",

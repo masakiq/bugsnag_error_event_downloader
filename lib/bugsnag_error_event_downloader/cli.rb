@@ -92,11 +92,22 @@ module BugsnagErrorEventDownloader
       required: true,
       type: :string,
       desc: "Path to the csv_map_path"
+    option :start_date,
+      required: false,
+      type: :numeric,
+      desc: "Path to the start_date in unix-time(default: current time)"
+    option :end_date,
+      required: false,
+      type: :numeric,
+      default: Time.now.to_i,
+      desc: "Path to the end_date in unix-time(default: 1 day ago)"
     def error_events
       Output.puts Commands::ErrorEvents.new(
         project_id: options[:project_id],
         error_id: options[:error_id],
-        csv_map_path: options[:csv_map_path]
+        csv_map_path: options[:csv_map_path],
+        start_date: options[:start_date] || options[:end_date] - (60 * 60 * 24 * 1),
+        end_date: options[:end_date]
       ).get
     rescue BugsnagErrorEventDownloader::NoAuthTokenError
       puts_error_no_auth_token_error
