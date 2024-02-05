@@ -6,7 +6,11 @@ module BugsnagErrorEventDownloader
       include Thor::Base
 
       def initialize(project_id:, error_id:, include_stacktrace:, include_breadcrumbs:)
-        @client = BugsnagApiClient::ErrorEventClient.new(project_id: project_id, error_id: error_id)
+        @client = BugsnagApiClient::ErrorEventClient.new(
+          project_id: project_id,
+          error_id: error_id,
+          start_date: Time.now.to_i - 60 * 60 * 24 * 30,
+        )
         @include_stacktrace = include_stacktrace
         @include_breadcrumbs = include_breadcrumbs
       end
